@@ -49,7 +49,7 @@ Para instalar o programa no Linux, de modo que possa ser chamado em qualquer dir
 
 ```
 sudo mkdir /usr/local/share/fitText
-sudo cp * /usr/local/share/fitText
+sudo cp -R * /usr/local/share/fitText
 sudo ln -s /usr/local/share/fitText/fitText.py /usr/local/bin/fitText
 sudo chmod a+x /usr/local/share/fitText/fitText.py /usr/local/bin/fitText
 sudo chmod a+r /usr/local/share/fitText/*
@@ -83,10 +83,10 @@ python ./fitText examples/input.txt
 No caso do teste da instalação no sistema, rode o seguinte comando:
 
 ```
-fitText examples/input.txt
+fitText /usr/local/share/fitText/examples/input.txt
 ```
 
-O resultado deve ser igual ao arquivo `eamples/output1.txt`.
+O resultado deve ser igual ao arquivo `/usr/local/share/fitText/examples/output1.txt`.
 
 
 ### Teste 2
@@ -100,10 +100,10 @@ python ./fitText -j examples/input.txt
 No caso do teste da instalação no sistema, rode o seguinte comando:
 
 ```
-fitText -j examples/input.txt
+fitText -j /usr/local/share/fitText/examples/input.txt
 ```
 
-O resultado deve ser igual ao arquivo `examples/output2.txt`.
+O resultado deve ser igual ao arquivo `/usr/local/share/fitText/examples/output2.txt`.
 
 
 ## Log
