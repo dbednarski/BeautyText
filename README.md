@@ -1,4 +1,4 @@
-# Desafio 1: Strings
+# FITTEXT
 
 ## Sobre o programa
 
@@ -9,9 +9,9 @@ Os espaços no arquivo precedidos por uma barra invertida ("\") escapam as palav
 ### Arquivos
 
 * `fitText.py`: arquivo executável do programa.
-* `input.txt`: exemplo de arquivo de entrada para teste.
-* `output-parte1.txt`: arquivo com a saída do exemplo.
-* `output-parte1.txt`: arquivo com a saída do exemplo (linhas justificadas). 
+* `examples/input.txt`: exemplo de arquivo de entrada para teste.
+* `examples/output1.txt`: arquivo com a saída do exemplo.
+* `examples/output2.txt`: arquivo com a saída do exemplo (linhas justificadas). 
 
 
 ### Requisitos de instalação
@@ -25,22 +25,22 @@ Os espaços no arquivo precedidos por uma barra invertida ("\") escapam as palav
 Para executar localmente -- isto é, diretamente de dentro deste diretório --, passar o comando com a seguinte sintaxe no terminal:
 
 ```
-python fitText.py [-h] [-j] [-n *num_char*] *file*
+python fitText.py [-h] [-j] [-n <num_char>] <file>
 ```
 
 ou
 
 ```
-./fitText.py [-h] [-j] [-n *num_char*] *file*
+./fitText.py [-h] [-j] [-n <num_char>] <file>
 ```
 
 * Parâmetro obrigatório:
-    * `*file*`: caminho para o arquivo de entrada a ser editado.
+    * `<file>`: caminho para o arquivo de entrada a ser editado.
 
 * Parâmetros opcionais:
     * `-h`, `--help`: exibe mensagem de ajuda do programa
     * `-j`, `--justify`: habilita a justificação o texto
-    * `-n *num_char*`, `--num_char *num_char*`: número máximo de caracteres em cada linha (padrão = 40)
+    * `-n <num_char>`, `--num_char <num_char>`: número máximo de caracteres em cada linha (padrão = 40)
 
 
 ### Instalando no Linux
@@ -74,36 +74,36 @@ Após a instalação, seja no sistema ou localmente, execute os dois testes a se
 
 ### Teste 1
 
-Para testar o código localmente, rode-o em um terminal dentro do diretório local com o seguinte código:
+Para testar o código localmente, rode-o em um terminal dentro do diretório raiz deste programa com o seguinte código:
 
 ```
-python ./fitText input.txt
+python ./fitText examples/input.txt
 ```
 
-No caso do teste da instalação no sistema, rode dentro do diretório onde está `input.txt` o seguinte comando:
+No caso do teste da instalação no sistema, rode o seguinte comando:
 
 ```
-fitText input.txt
+fitText examples/input.txt
 ```
 
-O resultado deve ser igual ao arquivo `output-parte1.txt`.
+O resultado deve ser igual ao arquivo `eamples/output1.txt`.
 
 
 ### Teste 2
 
-Para testar o código localmente, rode-o em um terminal dentro do diretório local com o seguinte código:
+Para testar o código localmente, rode-o em um terminal dentro do diretório raiz deste programa com o seguinte código:
 
 ```
-python ./fitText -j input.txt
+python ./fitText -j examples/input.txt
 ```
 
-No caso do teste da instalação no sistema, rode dentro do diretório onde está `input.txt` o seguinte comando:
+No caso do teste da instalação no sistema, rode o seguinte comando:
 
 ```
-fitText -j input.txt
+fitText -j examples/input.txt
 ```
 
-O resultado deve ser igual ao arquivo `output-parte2.txt`.
+O resultado deve ser igual ao arquivo `examples/output2.txt`.
 
 
 ## Log
