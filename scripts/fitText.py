@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #
 
+from __future__ import print_function, unicode_literals
 import argparse, sys
-from BeautyText import BeautyText
+from beautytext.BeautyText import BeautyText
 
 
 def main(args):

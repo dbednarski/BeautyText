@@ -1,114 +1,129 @@
-# FITTEXT
+# BeautyText
 
-## Sobre o programa
+Este é um pacote usado para a formatação de textos - em especial, limitação de caracteres por linhas. É composto pelo módulo Python `BeautyText` e por um script executável que o implementa.
 
-Este programa lê um texto em um arquivo e o imprime no terminal com um limite máximo de caracteres por linha.
-Os parágrafos devem ser separados no arquivo por uma linha em branco.
-Os espaços no arquivo precedidos por uma barra invertida ("\") escapam as palavras entre ele de ocuparem linhas diferentes.
+### Estrutura de diretórios
 
-### Arquivos
+* `beautytext`: diretório do módulo BeautyText
+* `scripts` : diretório do script de implementação
+* `examples`: arquivos exemplos para testes.
 
-* `fitText.py`: arquivo executável do programa.
-* `examples/input.txt`: exemplo de arquivo de entrada para teste.
-* `examples/output1.txt`: arquivo com a saída do exemplo.
-* `examples/output2.txt`: arquivo com a saída do exemplo (linhas justificadas). 
 
+
+## Instalação
+
+
+Primeiramente, escolha se deseja instalar localmente (apenas para seu usuário) ou em todo o sistema. Abra um terminal e, a partir do diretório raiz deste pacote:
+
+* Para instalar localmente, execute o comando:
+```
+$ python setup.py install --user
+```
+
+* Para instalar em todo o sistema, execute o comando:
+```
+$ sudo python setup.py install
+```
 
 ### Requisitos de instalação
 
-* Python 2.7.* (não testado no Python 3.*)
+* Python > 2.7
+* [setuptools](https://pypi.org/project/setuptools)
 * [numpy](https://www.numpy.org/)
 
 
-### Executando localmente
 
-Para executar localmente -- isto é, diretamente de dentro deste diretório --, passar o comando com a seguinte sintaxe no terminal:
+# O pacote
 
-```
-python fitText.py [-h] [-j] [-n <num_char>] <file>
-```
+## Módulo beautytext
 
-ou
+O módulo beautytext é composto apenas por uma classe homônima. A descrição dos atributos e métodos podem ser encontrada no próprio arquivo `beautytext/BeautyText.py`. A classe possibilita a implementação das funcionalidades por terceiros, sendo recomendado importá-la como
 
 ```
-./fitText.py [-h] [-j] [-n <num_char>] <file>
+from beautytext.BeautyText import BeautyText
+```
+
+
+## Script fitText.py
+
+O script `fitText.py` é uma implementação do módulo que lê um arquivo de texto e o imprime formatado no terminal com um limite máximo de caracteres por linha. Ele pode ser chamado de qualquer local através com a sintaxe:
+
+```
+fitText.py [-h] [-j] [-n <num_char>] <file>
 ```
 
 * Parâmetro obrigatório:
-    * `<file>`: caminho para o arquivo de entrada a ser editado.
+    * `<file>`: caminho para o arquivo de entrada com o texto a ser editado.
 
 * Parâmetros opcionais:
     * `-h`, `--help`: exibe mensagem de ajuda do programa
-    * `-j`, `--justify`: habilita a justificação o texto
-    * `-n <num_char>`, `--num_char <num_char>`: número máximo de caracteres em cada linha (padrão = 40)
+    * `-j`, `--justify`: habilita o texto justificado
+    * `-n <num_char>`, `--num_char <num_char>`: número máximo de caracteres em cada linha (padrão: 40)
 
+### Status de saída
 
-### Instalando no Linux
-
-Para instalar o programa no Linux, de modo que possa ser chamado em qualquer diretório pelo simples comando `fitText`, executar os seguintes comandos no terminal:
-
-```
-sudo mkdir /usr/local/share/fitText
-sudo cp -R * /usr/local/share/fitText
-sudo ln -s /usr/local/share/fitText/fitText.py /usr/local/bin/fitText
-sudo chmod a+x /usr/local/share/fitText/fitText.py /usr/local/bin/fitText
-sudo chmod a+r /usr/local/share/fitText/*
-```
-
-A sintaxe é a mesma da [execução local](#executando-localmente)
-
-
-### Status
-
-Ao finalizado, o programa retorna um código padrão de status para o sistema:
+Ao finalizado o script, é retornado um código padrão de status para o sistema:
 
 * 0: caso o processamento tenha sido efetuado com sucesso.
 * 1: caso tenha ocorrido algum erro.
 
 
 
-## Testes
+## Usabilidade
 
-Após a instalação, seja no sistema ou localmente, execute os dois testes a seguir.
+Tanto os métodos `getBeautyText()` e `saveBeautyText()` da classe `BeautyText`, quanto para o script `fitText.py` só funcionarão corretamente se as seguintes observações forem levadas em conta:
+
+* Os parágrafos devem ser separados no arquivo por uma linha em branco. Uma quebra de linha simples é tratada como continuação do mesmo parágrafo.
+* A barra invertida procedida por um espaço ("\ ") pode ser usada para explicitar conteúdos que não devem ser separados de linha. Exemplo:
+    > O Teorema de Pitágoras diz que a soma dos quadrados dos catetos é igual ao quadrado da hipotenusa, ou seja, c²\ =\ a²\ +\ b².
+
+  previne que a fórmula matemática se separe em duas linhas. O resultado após rodar o script fica:
+
+    > O Teorema de Pitágoras diz que a soma
+    >
+    > dos quadrados dos catetos é igual ao
+    >
+    > quadrado da hipotenusa, ou  seja,
+    >
+    > c² = a² + b².
+    
+  Sem as barras invertidas no texto de entrada, a saída ficaria
+
+    > O Teorema de Pitágoras diz que a soma
+    >
+    > dos quadrados dos catetos é igual ao
+    >
+    > quadrado da hipotenusa, ou seja, c² = a²
+    >
+    > \+ b².
+
+
+# Testes
+
+Após a instalação, execute os dois testes a seguir.
 
 
 ### Teste 1
 
-Para testar o código localmente, rode-o em um terminal dentro do diretório raiz deste programa com o seguinte código:
+Rode dentro do diretório raiz o seguinte código:
 
 ```
-python ./fitText examples/input.txt
+fitText.py examples/input.txt
 ```
 
-No caso do teste da instalação no sistema, rode o seguinte comando:
-
-```
-fitText /usr/local/share/fitText/examples/input.txt
-```
-
-O resultado deve ser igual ao arquivo `/usr/local/share/fitText/examples/output1.txt`.
+O resultado deve ser igual ao arquivo `examples/output1.txt`.
 
 
 ### Teste 2
 
-Para testar o código localmente, rode-o em um terminal dentro do diretório raiz deste programa com o seguinte código:
+Rode dentro do diretório raiz o seguinte código:
 
 ```
-python ./fitText -j examples/input.txt
+fitText.py -j examples/input.txt
 ```
 
-No caso do teste da instalação no sistema, rode o seguinte comando:
+O resultado deve ser igual ao arquivo `examples/output2.txt`.
 
-```
-fitText -j /usr/local/share/fitText/examples/input.txt
-```
-
-O resultado deve ser igual ao arquivo `/usr/local/share/fitText/examples/output2.txt`.
-
-
-## Log
-
-2019-02-10: implementação do escape no espaço entre palavras que devem ocupar a mesma linha ("\ ")
 
 
 ## Autor

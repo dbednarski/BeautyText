@@ -1,1 +1,6 @@
-*.pyc
+beautytext/*.pyc
+build
+beautytext.egg-info
+dist
+.git
+beautytext/__pycache__/

@@ -5,8 +5,22 @@ import errno
 
 
 class BeautyText:
+    """Class for beauty text printing.
+
+    This class is used to process a crude text and fits in an maximum
+    number of characters by line. There is also an option to justify the
+    text.
+
+    Attributes:
+            text (str): Raw text.
+           nchar (int): Number of max characters per line
+        justify (bool): Justify the text?
+    """ 
 
     verbose = True
+    """
+        Attribute to show error messages
+    """
 
     def __init__(self, nchar = 40, justify = False):
         self.__text = None
@@ -15,6 +29,12 @@ class BeautyText:
         
         
     def setParams(self, nchar = None, justify = None):
+        """Sets/resets *nchar* and/or *justify* attributes.
+
+            Args:
+               nchar (int, optional): Number of max characters per line
+            justify (bool, optional): Justify the text?
+        """ 
         if nchar != None:
             self.__nchar = nchar
         if justify != None:
@@ -22,6 +42,11 @@ class BeautyText:
         
         
     def getParams(self):
+        """Returns *nchar* and *justify* attributes.
+
+            Returns:
+               :obj:`dictionary`: with the attributes nchar and justify
+        """ 
         return {
                 "nchar": self.__nchar,
                 "justify": self.__justify,
@@ -29,6 +54,15 @@ class BeautyText:
         
     
     def readRawText(self, path):
+        """Sets *text* attribute by reading the text file *path*.
+
+            Args:
+               path (str): The path (including the name) of the text file to be read
+
+            Returns:
+                bool: True, in case of success; False, otherwise.
+
+        """ 
         
         # Getting the input text inside the text file as a list whose parameters are paragraphs of the file
         try:
@@ -36,21 +70,36 @@ class BeautyText:
                 self.__text = [li.replace("\n","") for li in f.readlines()]
         except:
             if self.verbose:
-                print("ERROR: \"{}\" is not a text file or is not readable.".format(args["file"]))
+                print("ERROR: \"{}\" is not a text file or is not readable.".format(path))
             return False
             
         return True
         
 
     def setRawText(self, text):
+        """Set *text* attribute by reading a string *text*.
+
+            Params:
+               text (str): The string to be assigned as the attribute
+        """ 
         self.__text = text
 
 
     def getRawText(self):
+        """Return the *text* attribute.
+
+            Returns:
+               str: The attribute *text*
+        """ 
         return "\n".join(self.__text)
 
 
     def getBeautyText(self):
+        """Return the formatted *text* attribute.
+
+            Returns:
+               str: The formatted attribute *text*
+        """ 
         textout = self.__manipulate()
         if textout == False:
             return None
@@ -58,6 +107,14 @@ class BeautyText:
         
 
     def saveBeautyText(self, path):
+        """Save the formatted *text* attribute inside the file *path*.
+
+            Args:
+               path (str): The path (including the name) of the file to be written.
+
+            Returns:
+                bool: True, in case of success; False, otherwise.
+        """ 
         textout = self.__manipulate()
         if textout == None:
             return False
@@ -71,7 +128,6 @@ class BeautyText:
                 pass
         except IOError as x:
             if self.verbose:
-#                print 'ERROR: ', x.errno, ',', x.strerror
                 if x.errno == errno.EACCES:
                     print("ERROR: no permission to write \"{}\" inside the directory.".format(path))
                 elif x.errno == errno.EISDIR:
@@ -82,10 +138,12 @@ class BeautyText:
 
 
     def __manipulate(self):
+        # This function process the attribute *text* to the format specified by the others
+        # attributes *nchar* and *justify*.
 
         if self.__text == None:
             if self.verbose:
-                print("ERROR: no \"text\" parameter/atribute defined.")
+                print("ERROR: no \"text\" parameter/attribute defined.")
             return None
 
         # `text_out` will stock each paragraph as a list component; each paragraph is a list composed by lines
@@ -129,18 +187,14 @@ class BeautyText:
             # Remove the last dummy space
             text_out[-1] = text_out[-1][:-1]
 
-    #    if justifylast:
-    #        text_out[-1] = justifyLine(text_out[-1][:-1], nchar-1)
-
         return "".join(text_out)
 
 
     def __justifyLine(self, line):
-        """
-        This function receives a string `line` and returns this string fitted
-        within `nchar` characters. The final `line` lenght is reached by
-        increasing the spaces between the words.
-        """
+        # This function receives a string `line` and returns this string fitted
+        # within `nchar` characters. The final `line` length is reached by
+        # increasing the spaces between the words.
+
         
         # `line_arr` will stock each word as a list component
         line_arr = [li + " " for li in line.split(' ')[:-1]] + [line.split(' ')[-1]]
@@ -151,7 +205,7 @@ class BeautyText:
         
         if nspaces == 0:
             if self.verbose:
-                print("ERROR: impossible justify the text. Try a larger \"nchar\" parameter/atribute value.")
+                print("ERROR: impossible justify the text. Try a larger \"nchar\" parameter/attribute value.")
             return False
         
         while left > 0:
