@@ -10,17 +10,21 @@ def main(args):
     
     BeautyText.verbose = True
     text_obj = BeautyText(nchar = args["nchar"], justify = args["justify"])
-    if not text_obj.readRawText(args["file"]):
-        sys.exit(0)
+
+    if not sys.stdin.isatty():
+#        print(sys.stdin.read())
+        text_obj.setRawText(sys.stdin.read())
+#        print(text_obj.getRawText())
+    elif not text_obj.readRawText(args["file"]):
+        sys.exit(1)
         
     text_out = text_obj.getBeautyText()
     if text_out != None:
         print(text_out)
 
-    sys.exit(1)
+    sys.exit(0)
 
 
-    
 def parseArguments():
     """
     This funcion sets the allowed command line input parameters
@@ -34,7 +38,7 @@ def parseArguments():
     parser = argparse.ArgumentParser(description="Program to edit the text from \"file\" text file, fitting its content into lines with a maximum length. The output is the modified text printed on the terminal.")
 
     # Required argument
-    parser.add_argument("file", help="Text file with the plain text to be edited.", type=str)
+    parser.add_argument("file", help="Text file with the plain text to be edited.", type=str, nargs="?")
 
     # Optional arguments
     parser.add_argument("-j", "--justify", help="Justify the text", action="store_true")
@@ -45,8 +49,10 @@ def parseArguments():
     return args
 
 
-
-if __name__ == "__main__":
-
+def run():
     args = parseArguments()
     main(args.__dict__)
+
+
+if __name__ == "__main__":
+    run()

@@ -27,14 +27,19 @@ if sys.argv[-1] == "publish":
     sys.exit()
 
 setup(name='beautytext',
-    version='0.1',
+    version='0.2',
     description=('A tool to fits a text'),
     url='https://github.com/dbednarski/desafios/tree/master/strings',
     author='Daniel Bednarski',
     author_email='daniel.bednarski.ramos@gmail.com',
     license='GNU GPLv3.0',      
     packages=['beautytext'],
-    scripts=[os.path.join('scripts', f) for f in os.listdir('scripts')],
+    entry_points={
+        'console_scripts': [
+            'beautytext = beautytext.wrapper:wrapper',
+        ],
+    },
+#    scripts=[os.path.join('scripts', f) for f in os.listdir('scripts')],
     long_description=rd('README.md'),
     long_description_content_type="text/markdown",
     install_requires=['numpy'],

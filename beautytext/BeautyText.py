@@ -82,7 +82,11 @@ class BeautyText:
             Params:
                text (str): The string to be assigned as the attribute
         """ 
-        self.__text = text
+        
+        if text.endswith("\n"):
+            text = text[:-1]
+
+        self.__text = text.split("\n")
 
 
     def getRawText(self):

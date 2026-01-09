@@ -5,7 +5,6 @@ Este é um pacote usado para a formatação de textos - em especial, limitação
 ### Estrutura de diretórios
 
 * `beautytext`: diretório do módulo BeautyText
-* `scripts` : diretório do script de implementação
 * `examples`: arquivos exemplos para testes.
 
 
@@ -44,12 +43,12 @@ from beautytext.BeautyText import BeautyText
 ```
 
 
-## Script fitText.py
+## Script beautytext.py
 
-O script `fitText.py` é uma implementação do módulo que lê um arquivo de texto e o imprime formatado no terminal com um limite máximo de caracteres por linha. Ele pode ser chamado de qualquer local através com a sintaxe:
+O script `script.py`, instalado no sistema como `beautytext`, é uma implementação do módulo que lê um arquivo de texto e o imprime formatado no terminal com um limite máximo de caracteres por linha. Ele pode ser chamado de qualquer local através com a sintaxe:
 
 ```
-fitText.py [-h] [-j] [-n <num_char>] <file>
+beautytext [-h] [-j] [-n <num_char>] <file>
 ```
 
 * Parâmetro obrigatório:
@@ -71,7 +70,7 @@ Ao finalizado o script, é retornado um código padrão de status para o sistema
 
 ## Usabilidade
 
-Tanto os métodos `getBeautyText()` e `saveBeautyText()` da classe `BeautyText`, quanto para o script `fitText.py` só funcionarão corretamente se as seguintes observações forem levadas em conta:
+Tanto os métodos `getBeautyText()` e `saveBeautyText()` da classe `BeautyText`, quanto para o script `beautytext` só funcionarão corretamente se as seguintes observações forem levadas em conta:
 
 * Os parágrafos devem ser separados no arquivo por uma linha em branco. Uma quebra de linha simples é tratada como continuação do mesmo parágrafo.
 * A barra invertida procedida por um espaço ("\ ") pode ser usada para explicitar conteúdos que não devem ser separados de linha. Exemplo:
@@ -108,7 +107,7 @@ Após a instalação, execute os dois testes a seguir.
 Rode dentro do diretório raiz o seguinte código:
 
 ```
-fitText.py examples/input.txt
+beautytext examples/input.txt
 ```
 
 O resultado deve ser igual ao arquivo `examples/output1.txt`.
@@ -119,11 +118,15 @@ O resultado deve ser igual ao arquivo `examples/output1.txt`.
 Rode dentro do diretório raiz o seguinte código:
 
 ```
-fitText.py -j examples/input.txt
+beautytext -j examples/input.txt
 ```
 
 O resultado deve ser igual ao arquivo `examples/output2.txt`.
 
+## Change log
+
+- Version 0.1: Initial release
+- Version 0.2: Script installed via _entry_points_. Script accepts stdin as input. Bugs in BeautyText fixed.
 
 
 ## Autor
