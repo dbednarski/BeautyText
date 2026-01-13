@@ -48,7 +48,7 @@ from beautytext.BeautyText import BeautyText
 O script `script.py`, instalado no sistema como `beautytext`, é uma implementação do módulo que lê um arquivo de texto e o imprime formatado no terminal com um limite máximo de caracteres por linha. Ele pode ser chamado de qualquer local através com a sintaxe:
 
 ```
-beautytext [-h] [-j] [-n <num_char>] <file>
+beautytext [-h] [-j] [-n <num_char>] [-s (single|double)] <file>
 ```
 
 * Parâmetro obrigatório:
@@ -58,6 +58,7 @@ beautytext [-h] [-j] [-n <num_char>] <file>
     * `-h`, `--help`: exibe mensagem de ajuda do programa
     * `-j`, `--justify`: habilita o texto justificado
     * `-n <num_char>`, `--num_char <num_char>`: número máximo de caracteres em cada linha (padrão: 40)
+    * `-s (single|double)`, `--separator (single|double)`: Separador de parágrafos no texto de entrada. `single` interpreta quebra de linhas como separadores, enquanto `double` interpreta quebras simples como continuidades da linha anterior, requerendo uma linha em branco entre parágrafos.
 
 ### Status de saída
 
@@ -127,6 +128,7 @@ O resultado deve ser igual ao arquivo `examples/output2.txt`.
 
 - Version 0.1: Initial release
 - Version 0.2: Script installed via _entry_points_. Script accepts stdin as input. Bugs in BeautyText fixed.
+- Version 0.3: New `separator parameter`. Bugs for single mode were fixed.
 
 
 ## Autor

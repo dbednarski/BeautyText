@@ -27,9 +27,9 @@ if sys.argv[-1] == "publish":
     sys.exit()
 
 setup(name='beautytext',
-    version='0.2',
+    version='0.3',
     description=('A tool to fits a text'),
-    url='https://github.com/dbednarski/desafios/tree/master/strings',
+    url='https://github.com/dbednarski/BeautyText',
     author='Daniel Bednarski',
     author_email='daniel.bednarski.ramos@gmail.com',
     license='GNU GPLv3.0',      

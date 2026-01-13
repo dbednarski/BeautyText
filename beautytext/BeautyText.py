@@ -1,4 +1,5 @@
 from __future__ import print_function, unicode_literals
+import re
 import numpy as np
 import os.path
 import errno
@@ -15,6 +16,7 @@ class BeautyText:
             text (str): Raw text.
            nchar (int): Number of max characters per line
         justify (bool): Justify the text?
+             separator: Type of paragraph separator
     """ 
 
     verbose = True
@@ -22,23 +24,35 @@ class BeautyText:
         Attribute to show error messages
     """
 
-    def __init__(self, nchar = 40, justify = False):
+    def __init__(self, nchar = 40, justify = False, separator="double"):
         self.__text = None
         self.__nchar = nchar
         self.__justify = justify
+
+
+        if separator not in ("single", "double"):
+            raise ValueError("Invalid separator value. It must be 'single' ou 'double'.")
+
+        self.__separator = separator
         
         
-    def setParams(self, nchar = None, justify = None):
+    def setParams(self, nchar = None, justify = None, separator = None):
         """Sets/resets *nchar* and/or *justify* attributes.
 
             Args:
                nchar (int, optional): Number of max characters per line
             justify (bool, optional): Justify the text?
         """ 
+
+        if separator not in ("single", "double"):
+            raise ValueError("Invalid separator value. It must be 'single' ou 'double'.")
+
         if nchar != None:
             self.__nchar = nchar
         if justify != None:
-            self.__justify = justify
+             self.__justify = justify
+        if separator != None:
+             self.__separator = separator
         
         
     def getParams(self):
@@ -50,6 +64,7 @@ class BeautyText:
         return {
                 "nchar": self.__nchar,
                 "justify": self.__justify,
+                "separator": self.__separator
                }
         
     
@@ -152,16 +167,37 @@ class BeautyText:
 
         # `text_out` will stock each paragraph as a list component; each paragraph is a list composed by lines
         text_out = []
+        paragraphs = []
+
+        for line in self.__text:
+
+            # In case of new paragraph
+            if self.__separator  == "single":
+                paragraphs += [""]
+            elif self.__separator  == "double" and re.fullmatch(r'[ \t]*', line):
+                paragraphs += [""]
+                continue
+
+            # If it is the first line
+            if len(paragraphs) == 0:
+                paragraphs += [line.strip()]
+            # If it is a continuation of a paragraph
+            else:
+                if len(paragraphs[-1]) != 0:
+                    paragraphs[-1] += " "
+                paragraphs[-1] += line.strip()
 
         # Loop on the paragraphs
-        for paragraph in self.__text:
+        for i, paragraph in enumerate(paragraphs):
 
-            text_out += [""]
             specialword = ""
-            # In case of new paragraph
-            if paragraph == "" or (len(paragraph) > 0 and paragraph[0] == " "):
-                text_out[-1] = "\n\n"
-                continue
+
+            if i != 0:
+                if self.__separator == "single":
+                    text_out += "\n"
+                else:
+                    text_out += "\n\n"
+            text_out += [""]
 
             # Loop on the words
             for word in paragraph.split(' '):
@@ -178,7 +214,7 @@ class BeautyText:
                         text_out[-1] = text_out[-1][:-1] + "\n"
                     text_out += [""]
                     
-                if word[-1] == "\\":
+                if len(word) != 0 and word[-1] == "\\":
                     specialword += word[:-1] + " "
                     continue
 

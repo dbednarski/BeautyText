@@ -9,7 +9,7 @@ from beautytext.BeautyText import BeautyText
 def main(args):
     
     BeautyText.verbose = True
-    text_obj = BeautyText(nchar = args["nchar"], justify = args["justify"])
+    text_obj = BeautyText(nchar = args["nchar"], justify = args["justify"], separator = args["separator"])
 
     if not sys.stdin.isatty():
 #        print(sys.stdin.read())
@@ -42,7 +42,8 @@ def parseArguments():
 
     # Optional arguments
     parser.add_argument("-j", "--justify", help="Justify the text", action="store_true")
-    parser.add_argument("-n", "--nchar", help="Number of max characters in each line (Default = 40)", type=int, default=40)
+    parser.add_argument("-n", "--nchar", help="Number of max characters in each line.", type=int, default=40)
+    parser.add_argument("-s", "--separator", help="Paragraph separator in the text file. `single` interprets single line breaks as separator; `double` requires blank lines between the paragraphs.", choices=("single", "double"), default="double")
 
     args = parser.parse_args()
 
