@@ -1,145 +1,125 @@
 # BeautyText
 
-Este é um pacote usado para a formatação de textos - em especial, limitação de caracteres por linhas. É composto pelo módulo Python `BeautyText` e por um script executável que o implementa.
+This is a package used for text formatting – specifically for limiting the number of characters per line. It consists of a Python module with the `BeautyText`class, and an executable script that implements it.
 
-### Estrutura de diretórios
+### Directory structure
 
-* `beautytext`: diretório do módulo BeautyText
-* `examples`: arquivos exemplos para testes.
+- `beautytext`: BeautyText module directory
+- `examples`: example files for testing
 
+---
 
+## Installation
 
-## Instalação
+Open a terminal and enter the root directory of this package.
 
-
-Primeiramente, escolha se deseja instalar localmente (apenas para seu usuário) ou em todo o sistema. Abra um terminal e, a partir do diretório raiz deste pacote:
-
-* Para instalar localmente, execute o comando:
-```
-$ python setup.py install --user
-```
-
-* Para instalar em todo o sistema, execute o comando:
-```
-$ sudo python setup.py install
+- To install locally (i.e., only for your user), run:
+```bash
+python setup.py install --user
 ```
 
-### Requisitos de instalação
-
-* Python > 2.7
-* [setuptools](https://pypi.org/project/setuptools)
-* [numpy](https://www.numpy.org/)
-
-
-
-# O pacote
-
-## Módulo beautytext
-
-O módulo beautytext é composto apenas por uma classe homônima. A descrição dos atributos e métodos podem ser encontrada no próprio arquivo `beautytext/BeautyText.py`. A classe possibilita a implementação das funcionalidades por terceiros, sendo recomendado importá-la como
-
+- To install globally, run:
+```bash
+sudo python setup.py install
 ```
+
+### Installation requirements
+
+- Python ≥ 2.7
+- [setuptools](https://pypi.org/project/setuptools)
+- [numpy](https://www.numpy.org/)
+
+---
+
+# The package
+
+## `beautytext` module
+
+The `beautytext` module consists of a single homonym class. A description of its attributes and methods can be found in the file `beautytext/BeautyText.py` itself. The class allows third-party implementations of its functionality, and it is recommended to import it as follows:
+
+```python
 from beautytext.BeautyText import BeautyText
 ```
 
+---
 
-## Script beautytext.py
+## `beautytext` script
 
-O script `script.py`, instalado no sistema como `beautytext`, é uma implementação do módulo que lê um arquivo de texto e o imprime formatado no terminal com um limite máximo de caracteres por linha. Ele pode ser chamado de qualquer local através com a sintaxe:
+The script `beautytext/script.py` is installed in the system as the executable `beautytext`. It is an implementation of the class features that reads a text file and prints the content in the terminal with a maximum character limit per line. It can be called using the syntax:
 
-```
+```text
 beautytext [-h] [-j] [-n <num_char>] [-s (single|double)] <file>
 ```
 
-* Parâmetro obrigatório:
-    * `<file>`: caminho para o arquivo de entrada com o texto a ser editado.
+- Required parameter:
+  - `<file>`: path to the input file containing the text to be processed
 
-* Parâmetros opcionais:
-    * `-h`, `--help`: exibe mensagem de ajuda do programa
-    * `-j`, `--justify`: habilita o texto justificado
-    * `-n <num_char>`, `--num_char <num_char>`: número máximo de caracteres em cada linha (padrão: 40)
-    * `-s (single|double)`, `--separator (single|double)`: Separador de parágrafos no texto de entrada. `single` interpreta quebra de linhas como separadores, enquanto `double` interpreta quebras simples como continuidades da linha anterior, requerendo uma linha em branco entre parágrafos.
+- Optional parameters:
+  - `-h`, `--help`: displays the program help message
+  - `-j`, `--justify`: enables justified text
+  - `-n <num_char>`, `--num_char <num_char>`: maximum number of characters per line (default: 40)
+  - `-s (single|double)`, `--separator (single|double)`: paragraph separator in the input text. If `single`, interprets line breaks as paragraph separators, while `double` interprets single line breaks as continuation of the previous line, requiring a blank line between paragraphs. (default: `double`)
 
-### Status de saída
+### Exit status
 
-Ao finalizado o script, é retornado um código padrão de status para o sistema:
+After the script finishes execution, a standard exit status code is returned to the system:
 
-* 0: caso o processamento tenha sido efetuado com sucesso.
-* 1: caso tenha ocorrido algum erro.
+- 0: if the processing was completed successfully
+- 1: if an error occurred
 
+---
 
+## Usability
 
-## Usabilidade
+A backslash followed by a space (`\ `) can be used to explicitly mark content that must not be split across lines. Example:
 
-Tanto os métodos `getBeautyText()` e `saveBeautyText()` da classe `BeautyText`, quanto para o script `beautytext` só funcionarão corretamente se as seguintes observações forem levadas em conta:
+> The Pythagorean Theorem states that the sum of the squares of the legs is equal to the square of the hypotenuse, that is, c²\ =\ a²\ +\ b².
 
-* Os parágrafos devem ser separados no arquivo por uma linha em branco. Uma quebra de linha simples é tratada como continuação do mesmo parágrafo.
-* A barra invertida procedida por um espaço ("\ ") pode ser usada para explicitar conteúdos que não devem ser separados de linha. Exemplo:
-    > O Teorema de Pitágoras diz que a soma dos quadrados dos catetos é igual ao quadrado da hipotenusa, ou seja, c²\ =\ a²\ +\ b².
+This prevents the mathematical formula from being split into two lines. The result after running the script is:
 
-  previne que a fórmula matemática se separe em duas linhas. O resultado após rodar o script fica:
+> The Pythagorean Theorem states that the sum  
+> of the squares of the legs is equal to the  
+> square of the hypotenuse, that is,  
+> c² = a² + b².
 
-    > O Teorema de Pitágoras diz que a soma
-    >
-    > dos quadrados dos catetos é igual ao
-    >
-    > quadrado da hipotenusa, ou  seja,
-    >
-    > c² = a² + b².
-    
-  Sem as barras invertidas no texto de entrada, a saída ficaria
+Without the backslashes in the input text, the output would be:
 
-    > O Teorema de Pitágoras diz que a soma
-    >
-    > dos quadrados dos catetos é igual ao
-    >
-    > quadrado da hipotenusa, ou seja, c² = a²
-    >
-    > \+ b².
+> The Pythagorean Theorem states that the sum  
+> of the squares of the legs is equal to the  
+> square of the hypotenuse, that is, c² = a²  
+> + b².
+
+---
+
+## Tests
+
+After installation, run the two tests below from the root directory.
 
 
-# Testes
+### Tests 1
 
-Após a instalação, execute os dois testes a seguir.
-
-
-### Teste 1
-
-Rode dentro do diretório raiz o seguinte código:
-
-```
-beautytext examples/input.txt
+```bash
+beautytext examples/input_1.txt                 # compare with examples/output_1_double.txt
+beautytext -j examples/input_1.txt              # compare with examples/output_1_double_just.txt
+beautytext -s single examples/input_1.txt       # compare with examples/output_1_single.txt
 ```
 
-O resultado deve ser igual ao arquivo `examples/output1.txt`.
+### Tests 2
 
-
-### Teste 2
-
-Rode dentro do diretório raiz o seguinte código:
-
-```
-beautytext -j examples/input.txt
+```bash
+beautytext -s single examples/input_2.txt       # compare with examples/output_2_single.txt
+beautytext -j -s single examples/input_2.txt    # compare with examples/output_2_single_just.txt
 ```
 
-O resultado deve ser igual ao arquivo `examples/output2.txt`.
+---
 
-## Change log
+## Author
 
-- Version 0.1: Initial release
-- Version 0.2: Script installed via _entry_points_. Script accepts stdin as input. Bugs in BeautyText fixed.
-- Version 0.3: New `separator parameter`. Bugs for single mode were fixed.
-
-
-## Autor
-
-Daniel Bednarski Ramos
-
-[https://www.astro.iag.usp.br/~bednarski](https://www.astro.iag.usp.br/~bednarski)
-
+Daniel Bednarski Ramos  
 daniel.bednarski.ramos@gmail.com
 
+---
 
-## Licença
+## License
 
 GNU GPLv3
